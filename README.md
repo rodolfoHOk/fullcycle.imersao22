@@ -19,15 +19,9 @@ Este projeto foi desenvolvido durante a Imersão Full Stack & Full Cycle, onde c
 
 O objetivo é demonstrar a construção de um sistema distribuído moderno, com separação de responsabilidades, comunicação assíncrona e análise de fraudes em tempo real.
 
-### Geral
+### Arquitetura Geral
 
 ![Projects 01](/files/projects-01.png)
-
-### API Gateway em Go
-
-![Projects 02](/files/projects-02.png)
-
-![Projects 03](/files/projects-03.png)
 
 ### Componentes do Sistema
 
@@ -60,12 +54,8 @@ O objetivo é demonstrar a construção de um sistema distribuído moderno, com 
 
 ## Projetos
 
-- [API Gateway Go]()
+- [API Gateway Go](/go-gateway-api/README.md)
 
-- [FrontEnd Next.js]()
+- [FrontEnd Next.js](/) - em breve
 
-- [Antifraude Nest.js]()
-
-#### Stop
-
-- https://www.youtube.com/watch?v=LZcA1FbpTjM 45:30
+- [Antifraude Nest.js](/) - em breve

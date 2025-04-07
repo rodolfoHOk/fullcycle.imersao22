@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/repository"
 	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/service"
 	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/web/server"
