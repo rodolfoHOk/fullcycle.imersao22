@@ -33,10 +33,12 @@ func main() {
 	defer db.Close()
 
 	accountRepository := repository.NewAccountRepository(db)
+	invoiceRepository := repository.NewInvoiceRepository(db)
 	accountService := service.NewAccountService(accountRepository)
+	invoiceService := service.NewInvoiceService(invoiceRepository, *accountService)
 
 	port := getEnv("HTTP_PORT", "8080")
-	srv := server.NewServer(accountService, port)
+	srv := server.NewServer(accountService, invoiceService, port)
 	srv.ConfigureRoutes()
 	if err := srv.Start(); err != nil {
 		log.Fatalf("Error starting server: %v", err)
