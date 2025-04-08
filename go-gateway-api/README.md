@@ -63,6 +63,39 @@ X-API-Key: {api_key}
 ```
 Retorna os dados da conta associada ao API Key.
 
+### Criar Fatura
+```http
+POST /invoice
+Content-Type: application/json
+X-API-Key: {api_key}
+
+{
+    "amount": 100.50,
+    "description": "Compra de produto",
+    "payment_type": "credit_card",
+    "card_number": "4111111111111111",
+    "cvv": "123",
+    "expiry_month": 12,
+    "expiry_year": 2025,
+    "cardholder_name": "John Doe"
+}
+```
+Cria uma nova fatura e processa o pagamento. Faturas acima de R$ 10.000 ficam pendentes para análise manual.
+
+### Consultar Fatura
+```http
+GET /invoice/{id}
+X-API-Key: {api_key}
+```
+Retorna os dados de uma fatura específica.
+
+### Listar Faturas
+```http
+GET /invoice
+X-API-Key: {api_key}
+```
+Lista todas as faturas da conta.
+
 ## Testando a API
 
 O projeto inclui um arquivo `test.http` que pode ser usado com a extensão REST Client do VS Code. Este arquivo contém:
