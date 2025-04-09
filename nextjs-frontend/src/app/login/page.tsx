@@ -1,6 +1,6 @@
+import { Info } from 'lucide-react';
 import { Card, CardSubtitle, CardTitle } from '@/components/card';
 import { SubCard } from '@/components/sub-card';
-import { Info } from 'lucide-react';
 import { AuthForm } from './auth-form';
 
 export default function LoginPage() {

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { Eye, Download, Plus } from 'lucide-react';
 import { Card, CardSubtitle, CardTitle } from '@/components/card';
 import { SubCard } from '@/components/sub-card';
@@ -8,7 +9,6 @@ import { StatusBadge } from '@/components/status-badge';
 import { Paging } from '@/components/paging';
 import { Button } from '@/components/button';
 import { Label } from '@/components/label';
-import { cookies } from 'next/headers';
 
 interface Invoice {
   id: string;
