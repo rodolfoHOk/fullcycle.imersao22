@@ -1,7 +1,7 @@
 import { Card, CardSubtitle, CardTitle } from '@/components/card';
 import { InvoiceForm } from './invoice-form';
 
-export default function NewInvoicePage() {
+export default function CreateInvoicePage() {
   return (
     <Card>
       <div className="mb-6">
