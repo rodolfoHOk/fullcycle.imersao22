@@ -8,3 +8,21 @@ export function Card({ className, ...props }: React.ComponentProps<'div'>) {
     />
   );
 }
+
+export function CardTitle({ className, ...props }: React.ComponentProps<'h1'>) {
+  return (
+    <h1 className={cn('text-2xl font-bold text-white', className)} {...props} />
+  );
+}
+
+export function CardSubtitle({
+  className,
+  ...props
+}: React.ComponentProps<'p'>) {
+  return (
+    <p
+      className={cn('text-base font-normal text-gray-400', className)}
+      {...props}
+    />
+  );
+}

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Download } from 'lucide-react';
-import { Card } from '@/components/card';
-import { SubCard } from '@/components/sub-card';
+import { Card, CardSubtitle, CardTitle } from '@/components/card';
+import { SubCard, SubCardTitle } from '@/components/sub-card';
 import { StatusBadge } from '@/components/status-badge';
 import { Button } from '@/components/button';
 import { Info } from '@/components/info';
@@ -66,7 +66,7 @@ export default async function InvoiceDetailsPage({
           >
             <ArrowLeft size={20} />
           </Link>
-          <h1 className="text-2xl font-bold">Fatura {invoice.id}</h1>
+          <CardTitle>Fatura {invoice.id}</CardTitle>
 
           <StatusBadge status={invoice.status} />
         </div>
@@ -77,11 +77,13 @@ export default async function InvoiceDetailsPage({
         </Button>
       </div>
 
-      <p className="text-gray-400 mb-6">Criada em {invoice.createdAt}</p>
+      <CardSubtitle className="mb-6">
+        Criada em {invoice.createdAt}
+      </CardSubtitle>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SubCard>
-          <h2 className="text-xl font-semibold mb-4">Informações da Fatura</h2>
+          <SubCardTitle>Informações da Fatura</SubCardTitle>
 
           <div className="space-y-4">
             <Info label="ID da Fatura" value={invoice.id} />
@@ -93,7 +95,7 @@ export default async function InvoiceDetailsPage({
         </SubCard>
 
         <SubCard>
-          <h2 className="text-xl font-semibold mb-4">Status da Transação</h2>
+          <SubCardTitle>Status da Transação</SubCardTitle>
 
           <div className="space-y-6">
             {invoice.timeline.map((item, index) => (
@@ -107,7 +109,7 @@ export default async function InvoiceDetailsPage({
         </SubCard>
 
         <SubCard>
-          <h2 className="text-xl font-semibold mb-4">Método de Pagamento</h2>
+          <SubCardTitle>Método de Pagamento</SubCardTitle>
 
           <div className="space-y-4">
             <Info label="Tipo" value={invoice.paymentMethod} />
@@ -120,7 +122,7 @@ export default async function InvoiceDetailsPage({
         </SubCard>
 
         <SubCard>
-          <h2 className="text-xl font-semibold mb-4">Dados Adicionais</h2>
+          <SubCardTitle>Dados Adicionais</SubCardTitle>
 
           <div className="space-y-4">
             <Info label="ID da Conta" value={invoice.accountId} />

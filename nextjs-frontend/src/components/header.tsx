@@ -16,7 +16,7 @@ export default function Header({ username = 'usuário' }: HeaderProps) {
         <div className="flex items-center gap-4">
           <span className="text-gray-300">Olá, {username}</span>
 
-          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded flex items-center gap-1">
+          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded flex items-center gap-1 cursor-pointer transition-colors duration-200">
             <LogOut size={16} />
             <span>Logout</span>
           </button>

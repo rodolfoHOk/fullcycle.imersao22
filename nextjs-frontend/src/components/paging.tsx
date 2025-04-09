@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const pagingButtonVariants = cva(
-  'p-2 rounded  w-8 h-8 flex items-center justify-center transition-colors duration-200',
+  'p-2 rounded  w-8 h-8 flex items-center justify-center cursor-pointer transition-colors duration-200',
   {
     variants: {
       variant: {

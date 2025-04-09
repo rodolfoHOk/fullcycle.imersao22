@@ -6,7 +6,6 @@ export function Select({
 }: React.ComponentProps<'select'>) {
   return (
     <select
-      data-slot="input"
       className={cn(
         'w-full h-11 bg-slate-600 border border-slate-500 rounded p-2',
         className

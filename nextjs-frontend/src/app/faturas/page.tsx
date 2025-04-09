@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Eye, Download, Plus } from 'lucide-react';
-import { Card } from '@/components/card';
+import { Card, CardSubtitle, CardTitle } from '@/components/card';
 import { SubCard } from '@/components/sub-card';
 import { Input } from '@/components/input';
 import { Select, Option } from '@/components/select';
 import { StatusBadge } from '@/components/status-badge';
 import { Paging } from '@/components/paging';
 import { Button } from '@/components/button';
+import { Label } from '@/components/label';
 
 type Invoice = {
   id: string;
@@ -45,10 +46,10 @@ export default function InvoicesPage() {
     <Card>
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold">Faturas</h1>
-          <p className="text-gray-400">
+          <CardTitle>Faturas</CardTitle>
+          <CardSubtitle className="text-gray-400">
             Gerencie suas faturas e acompanhe os pagamentos
-          </p>
+          </CardSubtitle>
         </div>
 
         <Button variant={'primary'}>
@@ -62,7 +63,7 @@ export default function InvoicesPage() {
       <SubCard className="mb-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
-            <label className="block mb-2 text-sm">Status</label>
+            <Label size={'small'}>Status</Label>
             <Select>
               <Option>Todos</Option>
               <Option>Aprovado</Option>
@@ -72,17 +73,17 @@ export default function InvoicesPage() {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm">Data Inicial</label>
+            <Label size={'small'}>Data Inicial</Label>
             <Input type="date" placeholder="dd/mm/aaaa" />
           </div>
 
           <div>
-            <label className="block mb-2 text-sm">Data Final</label>
+            <Label size={'small'}>Data Final</Label>
             <Input type="date" placeholder="dd/mm/aaaa" />
           </div>
 
           <div>
-            <label className="block mb-2 text-sm">Buscar</label>
+            <Label size={'small'}>Buscar</Label>
             <Input type="text" placeholder="ID ou descrição" />
           </div>
         </div>
@@ -120,13 +121,13 @@ export default function InvoicesPage() {
                   <div className="flex gap-4">
                     <Link
                       href={`/faturas/INV-${invoice.id.replace('#', '')}`}
-                      className="text-indigo-400 hover:text-indigo-300"
+                      className="text-indigo-400 hover:text-indigo-300 cursor-pointer transition-colors duration-200"
                     >
-                      <Eye size={18} />
+                      <Eye size={24} />
                     </Link>
 
-                    <button className="text-indigo-400 hover:text-indigo-300">
-                      <Download size={18} />
+                    <button className="text-indigo-400 hover:text-indigo-300 cursor-pointer transition-colors duration-200">
+                      <Download size={24} />
                     </button>
                   </div>
                 </td>

@@ -9,8 +9,9 @@ import { Button } from '@/components/button';
 import Link from 'next/link';
 import { Input } from '@/components/input';
 import { TextArea } from '@/components/textarea';
-import { Card } from '@/components/card';
-import { SubCard } from '@/components/sub-card';
+import { Card, CardSubtitle, CardTitle } from '@/components/card';
+import { SubCard, SubCardTitle } from '@/components/sub-card';
+import { Label } from '@/components/label';
 
 export default function NewInvoicePage() {
   const router = useRouter();
@@ -42,17 +43,17 @@ export default function NewInvoicePage() {
   return (
     <Card>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Criar Nova Fatura</h1>
-        <p className="text-gray-400">
+        <CardTitle>Criar Nova Fatura</CardTitle>
+        <CardSubtitle>
           Preencha os dados abaixo para processar um novo pagamento
-        </p>
+        </CardSubtitle>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div>
-              <label className="block mb-2">Valor</label>
+              <Label>Valor</Label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                   R$
@@ -68,7 +69,7 @@ export default function NewInvoicePage() {
             </div>
 
             <div>
-              <label className="block mb-2">Descrição</label>
+              <Label>Descrição</Label>
               <TextArea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -78,11 +79,11 @@ export default function NewInvoicePage() {
           </div>
 
           <SubCard>
-            <h2 className="text-xl font-semibold mb-4">Dados do Cartão</h2>
+            <SubCardTitle>Dados do Cartão</SubCardTitle>
 
             <div className="space-y-4">
               <div>
-                <label className="block mb-2">Número do Cartão</label>
+                <Label>Número do Cartão</Label>
                 <div className="relative">
                   <Input
                     type="text"
@@ -97,18 +98,18 @@ export default function NewInvoicePage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2">Data de Expiração</label>
+                  <Label>Data de Expiração</Label>
                   <Input type="text" placeholder="MM/AA" />
                 </div>
 
                 <div>
-                  <label className="block mb-2">CVV</label>
+                  <Label>CVV</Label>
                   <Input type="text" placeholder="123" />
                 </div>
               </div>
 
               <div>
-                <label className="block mb-2">Nome no Cartão</label>
+                <Label>Nome no Cartão</Label>
                 <Input type="text" placeholder="Como aparece no cartão" />
               </div>
             </div>
