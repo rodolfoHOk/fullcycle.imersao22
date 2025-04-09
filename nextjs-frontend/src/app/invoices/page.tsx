@@ -8,39 +8,35 @@ import { StatusBadge } from '@/components/status-badge';
 import { Paging } from '@/components/paging';
 import { Button } from '@/components/button';
 import { Label } from '@/components/label';
+import { cookies } from 'next/headers';
 
-type Invoice = {
+interface Invoice {
   id: string;
-  date: string;
+  created_at: string;
   description: string;
-  value: string;
-  status: 'Aprovado' | 'Pendente' | 'Rejeitado';
-};
+  amount: number;
+  status: 'approved' | 'pending' | 'rejected';
+}
 
-export default function InvoicesPage() {
-  const invoices: Invoice[] = [
-    {
-      id: 'INV-001',
-      date: '30/03/2025',
-      description: 'Compra Online #123',
-      value: 'R$ 1.500,00',
-      status: 'Aprovado',
+export async function getInvoices(): Promise<Invoice[]> {
+  const cookiesStore = await cookies();
+  const apiKey = cookiesStore.get('apiKey')?.value;
+
+  const response = await fetch('http://localhost:8080/invoice', {
+    headers: {
+      'X-API-KEY': apiKey as string,
     },
-    {
-      id: 'INV-002',
-      date: '29/03/2025',
-      description: 'Serviço Premium',
-      value: 'R$ 15.000,00',
-      status: 'Pendente',
+    cache: 'force-cache',
+    next: {
+      tags: [`accounts/${apiKey}/invoices`],
     },
-    {
-      id: 'INV-003',
-      date: '28/03/2025',
-      description: 'Assinatura Mensal',
-      value: 'R$ 99,90',
-      status: 'Rejeitado',
-    },
-  ];
+  });
+
+  return response.json();
+}
+
+export default async function InvoicesPage() {
+  const invoices = await getInvoices();
 
   return (
     <Card>
@@ -107,11 +103,15 @@ export default function InvoicesPage() {
               <tr key={invoice.id} className="border-b border-slate-700">
                 <td className="py-3 px-4">{invoice.id}</td>
 
-                <td className="py-3 px-4">{invoice.date}</td>
+                <td className="py-3 px-4">
+                  {new Date(invoice.created_at).toLocaleDateString()}
+                </td>
 
                 <td className="py-3 px-4">{invoice.description}</td>
 
-                <td className="py-3 px-4">{invoice.value}</td>
+                <td className="py-3 px-4">
+                  {invoice.amount.toFixed(2).replace('.', ',')}
+                </td>
 
                 <td className="py-3 px-4">
                   <StatusBadge status={invoice.status} />
