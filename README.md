@@ -56,6 +56,6 @@ O objetivo é demonstrar a construção de um sistema distribuído moderno, com 
 
 - [API Gateway Go](/go-gateway-api/README.md)
 
-- [FrontEnd Next.js](/) - em breve
+- [FrontEnd Next.js](/nextjs-frontend/README.md)
 
 - [Antifraude Nest.js](/) - em breve

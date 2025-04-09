@@ -115,6 +115,6 @@ Para usar:
 
 - [API Gateway Go](#imersão-fullstack--fullcycle-22---gateway-de-pagamento---api-gateway-go)
 
-- [FrontEnd Next.js](../) - em breve
+- [FrontEnd Next.js](../nextjs-frontend/README.md)
 
 - [Antifraude Nest.js](../) - em breve
