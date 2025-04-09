@@ -147,7 +147,7 @@ export default function NewInvoicePage() {
 
         <div className="flex justify-end gap-4 mt-8">
           <Button type="button" variant={'secondary'}>
-            <Link href="/faturas">Cancelar</Link>
+            <Link href="/invoices">Cancelar</Link>
           </Button>
 
           <Button type="submit" variant={'primary'}>

@@ -20,21 +20,21 @@ type Invoice = {
 export default function InvoicesPage() {
   const invoices: Invoice[] = [
     {
-      id: '#INV-001',
+      id: 'INV-001',
       date: '30/03/2025',
       description: 'Compra Online #123',
       value: 'R$ 1.500,00',
       status: 'Aprovado',
     },
     {
-      id: '#INV-002',
+      id: 'INV-002',
       date: '29/03/2025',
       description: 'Serviço Premium',
       value: 'R$ 15.000,00',
       status: 'Pendente',
     },
     {
-      id: '#INV-003',
+      id: 'INV-003',
       date: '28/03/2025',
       description: 'Assinatura Mensal',
       value: 'R$ 99,90',
@@ -53,7 +53,7 @@ export default function InvoicesPage() {
         </div>
 
         <Button variant={'primary'}>
-          <Link href="/faturas/nova" className="flex items-center gap-1">
+          <Link href="/invoices/create" className="flex items-center gap-1">
             <Plus size={16} />
             <span>Nova Fatura</span>
           </Link>
@@ -120,7 +120,7 @@ export default function InvoicesPage() {
                 <td className="py-3 px-4">
                   <div className="flex gap-4">
                     <Link
-                      href={`/faturas/INV-${invoice.id.replace('#', '')}`}
+                      href={`/invoices/${invoice.id}`}
                       className="text-indigo-400 hover:text-indigo-300 cursor-pointer transition-colors duration-200"
                     >
                       <Eye size={24} />

@@ -1,7 +1,7 @@
 import { Card, CardSubtitle, CardTitle } from '@/components/card';
-import { Label } from '@/components/label';
 import { SubCard } from '@/components/sub-card';
-import { ArrowRight, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
+import { AuthForm } from './auth-form';
 
 export default function LoginPage() {
   return (
@@ -12,21 +12,7 @@ export default function LoginPage() {
       </CardSubtitle>
 
       <div className="space-y-4">
-        <div>
-          <Label htmlFor="apiKey">API Key</Label>
-
-          <div className="flex">
-            <input
-              type="text"
-              id="apiKey"
-              placeholder="Digite sua API Key"
-              className="flex-1 bg-slate-700 border border-slate-600 rounded-l-md p-2 pl-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <button className="bg-indigo-600 hover:bg-indigo-700 rounded-r-md p-2 transition-colors duration-200 cursor-pointer">
-              <ArrowRight size={24} />
-            </button>
-          </div>
-        </div>
+        <AuthForm />
 
         <SubCard>
           <div className="flex gap-2 mb-2">

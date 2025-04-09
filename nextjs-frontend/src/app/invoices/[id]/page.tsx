@@ -36,7 +36,7 @@ export default async function InvoiceDetailsPage({
   const { id } = await params;
 
   const invoice: Invoice = {
-    id: `#${id}`,
+    id,
     status: 'Aprovado',
     createdAt: '30/03/2025 às 14:30',
     value: 'R$ 1.500,00',
@@ -61,7 +61,7 @@ export default async function InvoiceDetailsPage({
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-4">
           <Link
-            href="/faturas"
+            href="/invoices"
             className="text-indigo-400 hover:text-indigo-300"
           >
             <ArrowLeft size={20} />
