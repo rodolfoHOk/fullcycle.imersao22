@@ -35,12 +35,10 @@ export async function createInvoiceAction(formData: FormData) {
       payment_type: 'credit_card',
     }),
   });
-
   if (!response.ok) {
     console.error('Error creating invoice:', await response.text());
     throw new Error('Failed to create invoice');
   }
-
   const data = await response.json();
 
   revalidateTag(`accounts/${apiKey}/invoices`);

@@ -1,33 +1,45 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { ArrowLeft, Download } from 'lucide-react';
 import { Card, CardSubtitle, CardTitle } from '@/components/card';
 import { SubCard, SubCardTitle } from '@/components/sub-card';
 import { StatusBadge } from '@/components/status-badge';
 import { Button } from '@/components/button';
 import { Info } from '@/components/info';
-import { TimelineItem } from '@/components/timeline-item';
 
-type Invoice = {
+interface Invoice {
   id: string;
-  status: 'Aprovado' | 'Pendente' | 'Rejeitado';
-  createdAt: string;
-  value: string;
+  account_id: string;
+  amount: number;
+  status: 'approved' | 'pending' | 'rejected';
   description: string;
-  creationDate: string;
-  lastUpdate: string;
-  paymentMethod: string;
-  lastDigits: string;
-  cardHolder: string;
-  accountId: string;
-  clientIp: string;
-  device: string;
-  timeline: { status: string; time: string }[];
-};
+  payment_type: string;
+  card_last_digits: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getInvoice(id: string): Promise<Invoice> {
+  const cookiesStore = await cookies();
+  const apiKey = cookiesStore.get('apiKey')?.value;
+
+  const response = await fetch(`http://localhost:8080/invoice/${id}`, {
+    headers: {
+      'X-API-KEY': apiKey as string,
+    },
+    cache: 'force-cache',
+    next: {
+      tags: [`accounts/${apiKey}/invoices/${id}`],
+    },
+  });
+
+  return response.json();
+}
 
 interface InvoiceDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function InvoiceDetailsPage({
@@ -35,26 +47,7 @@ export default async function InvoiceDetailsPage({
 }: InvoiceDetailsPageProps) {
   const { id } = await params;
 
-  const invoice: Invoice = {
-    id,
-    status: 'Aprovado',
-    createdAt: '30/03/2025 às 14:30',
-    value: 'R$ 1.500,00',
-    description: 'Compra Online #123',
-    creationDate: '30/03/2025 14:30',
-    lastUpdate: '30/03/2025 14:35',
-    paymentMethod: 'Cartão de Crédito',
-    lastDigits: '1234',
-    cardHolder: 'João da Silva',
-    accountId: 'ACC-12345',
-    clientIp: '192.168.1.1',
-    device: 'Desktop - Chrome',
-    timeline: [
-      { status: 'Fatura Criada', time: '30/03/2025 14:30' },
-      { status: 'Pagamento Processado', time: '30/03/2025 14:32' },
-      { status: 'Transação Aprovada', time: '30/03/2025 14:35' },
-    ],
-  };
+  const invoice = await getInvoice(id);
 
   return (
     <Card>
@@ -78,7 +71,7 @@ export default async function InvoiceDetailsPage({
       </div>
 
       <CardSubtitle className="mb-6">
-        Criada em {invoice.createdAt}
+        Criada em {invoice.created_at}
       </CardSubtitle>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -87,14 +80,23 @@ export default async function InvoiceDetailsPage({
 
           <div className="space-y-4">
             <Info label="ID da Fatura" value={invoice.id} />
-            <Info label="Valor" value={invoice.value} />
-            <Info label="Data de Criação" value={invoice.creationDate} />
-            <Info label="Última Atualização" value={invoice.lastUpdate} />
+            <Info
+              label="Valor"
+              value={invoice.amount.toFixed(2).replace('.', ',')}
+            />
+            <Info
+              label="Data de Criação"
+              value={new Date(invoice.created_at).toLocaleDateString()}
+            />
+            <Info
+              label="Última Atualização"
+              value={new Date(invoice.updated_at).toLocaleDateString()}
+            />
             <Info label="Descrição" value={invoice.description} />
           </div>
         </SubCard>
 
-        <SubCard>
+        {/* <SubCard>
           <SubCardTitle>Status da Transação</SubCardTitle>
 
           <div className="space-y-6">
@@ -106,30 +108,36 @@ export default async function InvoiceDetailsPage({
               />
             ))}
           </div>
-        </SubCard>
+        </SubCard> */}
 
         <SubCard>
           <SubCardTitle>Método de Pagamento</SubCardTitle>
 
           <div className="space-y-4">
-            <Info label="Tipo" value={invoice.paymentMethod} />
+            <Info
+              label="Tipo"
+              value={
+                invoice.payment_type === 'credit_card'
+                  ? 'Cartão de crédito'
+                  : 'Boleto'
+              }
+            />
             <Info
               label="Últimos Dígitos"
-              value={`**** **** **** ${invoice.lastDigits}`}
+              value={`**** **** **** ${invoice.card_last_digits}`}
             />
-            <Info label="Titular" value={invoice.cardHolder} />
           </div>
         </SubCard>
 
-        <SubCard>
+        {/* <SubCard>
           <SubCardTitle>Dados Adicionais</SubCardTitle>
 
           <div className="space-y-4">
-            <Info label="ID da Conta" value={invoice.accountId} />
-            <Info label="IP do Cliente" value={invoice.clientIp} />
+            <Info label="ID da Conta" value={invoice.account_id} />
+            <Info label="IP do Cliente" value={invoice.client_id} />
             <Info label="Dispositivo" value={invoice.device} />
           </div>
-        </SubCard>
+        </SubCard> */}
       </div>
     </Card>
   );
