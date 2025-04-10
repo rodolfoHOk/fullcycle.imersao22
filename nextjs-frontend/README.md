@@ -10,9 +10,12 @@
 - Tailwind CSS
 - UX Pilot, V0 e Copilot
 
-## Introdução
+## Guias
 
-- 
+### Serviços de IA
+
+- [UX Pilot](https://uxpilot.ai/)
+- [v0](https://v0.dev/)
 
 ## Rodar o projeto
 
@@ -25,14 +28,15 @@
 
 - git clone https://github.com/rodolfoHOk/fullcycle.imersao22
 - cd nextjs-frontend
+- npm install
 - npm run dev
 
 ## Projetos
 
 - [Readme Geral](../README.md)
 
-- [API Gateway Go](#imersão-fullstack--fullcycle-22---gateway-de-pagamento---api-gateway-go)
+- [API Gateway Go](../go-gateway-api/README.md)
 
-- [FrontEnd Next.js](../nextjs-frontend/README.md) - em breve
+- [FrontEnd Next.js](#imersão-fullstack--fullcycle-22---gateway-de-pagamento---frontend-nextjs)
 
-- [Antifraude Nest.js](../) - em breve
+- [Antifraude Nest.js](../nestjs-anti-fraud/README.md)

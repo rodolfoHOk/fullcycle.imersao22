@@ -9,7 +9,7 @@
 - Next.js
 - Apache Kafka
 - Docker
-- IA usando Cursor
+- IA usando Cursor e v0
 
 ## Introdução
 
@@ -26,23 +26,26 @@ O objetivo é demonstrar a construção de um sistema distribuído moderno, com 
 ### Componentes do Sistema
 
 - Frontend (Next.js)
-    - Interface do usuário para gerenciamento de contas e processamento de pagamentos
-    - Desenvolvido com Next.js para garantir performance e boa experiência do usuário
+
+  - Interface do usuário para gerenciamento de contas e processamento de pagamentos
+  - Desenvolvido com Next.js para garantir performance e boa experiência do usuário
 
 - Gateway (Go)
-    - Sistema principal de processamento de pagamentos
-    - Gerencia contas, transações e coordena o fluxo de pagamentos
-    - Publica eventos de transação no Kafka para análise de fraude
+
+  - Sistema principal de processamento de pagamentos
+  - Gerencia contas, transações e coordena o fluxo de pagamentos
+  - Publica eventos de transação no Kafka para análise de fraude
 
 - Apache Kafka
-    - Responsável pela comunicação assíncrona entre API Gateway e Antifraude
-    - Garante confiabilidade na troca de mensagens entre os serviços
-    - Tópicos específicos para transações e resultados de análise
+
+  - Responsável pela comunicação assíncrona entre API Gateway e Antifraude
+  - Garante confiabilidade na troca de mensagens entre os serviços
+  - Tópicos específicos para transações e resultados de análise
 
 - Antifraude (Nest.js)
-    - Consome eventos de transação do Kafka
-    - Realiza análise em tempo real para identificar possíveis fraudes
-    - Publica resultados da análise de volta no Kafka
+  - Consome eventos de transação do Kafka
+  - Realiza análise em tempo real para identificar possíveis fraudes
+  - Publica resultados da análise de volta no Kafka
 
 ### Fluxo de Comunicação
 
@@ -58,4 +61,4 @@ O objetivo é demonstrar a construção de um sistema distribuído moderno, com 
 
 - [FrontEnd Next.js](/nextjs-frontend/README.md)
 
-- [Antifraude Nest.js](/) - em breve
+- [Antifraude Nest.js](/nestjs-anti-fraud/README.md)

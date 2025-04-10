@@ -45,6 +45,7 @@
 ## API Endpoints
 
 ### Criar Conta
+
 ```http
 POST /accounts
 Content-Type: application/json
@@ -54,16 +55,20 @@ Content-Type: application/json
     "email": "john@doe.com"
 }
 ```
+
 Retorna os dados da conta criada, incluindo o API Key para autenticação.
 
 ### Consultar Conta
+
 ```http
 GET /accounts
 X-API-Key: {api_key}
 ```
+
 Retorna os dados da conta associada ao API Key.
 
 ### Criar Fatura
+
 ```http
 POST /invoice
 Content-Type: application/json
@@ -80,34 +85,40 @@ X-API-Key: {api_key}
     "cardholder_name": "John Doe"
 }
 ```
+
 Cria uma nova fatura e processa o pagamento. Faturas acima de R$ 10.000 ficam pendentes para análise manual.
 
 ### Consultar Fatura
+
 ```http
 GET /invoice/{id}
 X-API-Key: {api_key}
 ```
+
 Retorna os dados de uma fatura específica.
 
 ### Listar Faturas
+
 ```http
 GET /invoice
 X-API-Key: {api_key}
 ```
+
 Lista todas as faturas da conta.
 
 ## Testando a API
 
 O projeto inclui um arquivo `test.http` que pode ser usado com a extensão REST Client do VS Code. Este arquivo contém:
+
 - Variáveis globais pré-configuradas
 - Exemplos de todas as requisições
 - Captura automática do API Key após criação da conta
 
 Para usar:
+
 1. Instale a extensão REST Client no VS Code
 2. Abra o arquivo `test.http`
 3. Clique em "Send Request" acima de cada requisição
-
 
 ## Projetos
 
@@ -117,4 +128,4 @@ Para usar:
 
 - [FrontEnd Next.js](../nextjs-frontend/README.md)
 
-- [Antifraude Nest.js](../) - em breve
+- [Antifraude Nest.js](../nestjs-anti-fraud/README.md)
