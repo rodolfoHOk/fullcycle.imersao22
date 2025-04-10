@@ -10,6 +10,13 @@
 - PostgreSQL
 - REST
 
+## Guia
+
+### Teste service sem interface REST
+
+- npm run start:dev -- --entryFile repl
+- await get(FraudService).processInvoice({invoice_id: '1', account_id: '1', amount: 100})
+
 ## Rodar o projeto
 
 ### Requisitos
@@ -20,6 +27,7 @@
 
 - git clone https://github.com/rodolfoHOk/fullcycle.imersao22
 - cd nestjs-anti-fraud
+- docker compose up -d
 - npm install
 - npm run start:dev
 
