@@ -1,0 +1,14 @@
+### List invoices
+GET http://localhost:3000/invoices
+
+### List invoices by account id
+GET http://localhost:3000/invoices?account_id=1
+
+### List invoices with fraud
+GET http://localhost:3000/invoices?with_fraud=true
+
+### List invoices with fraud and account id
+GET http://localhost:3000/invoices?with_fraud=true&account_id=1
+
+### Get invoice by id
+GET http://localhost:3000/invoices/1

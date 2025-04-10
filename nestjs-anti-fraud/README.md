@@ -28,8 +28,22 @@
 - git clone https://github.com/rodolfoHOk/fullcycle.imersao22
 - cd nestjs-anti-fraud
 - docker compose up -d
+- docker compose exec -it nestjs bash
 - npm install
+- npx prisma migrate dev
 - npm run start:dev
+
+## Testando a API
+
+O projeto inclui um arquivo `test.http` que pode ser usado com a extensão REST Client do VS Code. Este arquivo contém:
+
+- Exemplos de todas as requisições
+
+Para usar:
+
+1. Instale a extensão REST Client no VS Code
+2. Abra o arquivo `test.http`
+3. Clique em "Send Request" acima de cada requisição
 
 ## Projetos
 
