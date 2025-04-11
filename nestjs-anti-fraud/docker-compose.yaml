@@ -1,21 +1,28 @@
 services:
-  nestjs:
+  anti-fraud:
     build: .
     ports:
       - 3001:3000
+      - 5555:5555
     volumes:
       - .:/home/node/app
+    networks:
+      - go-gateway-api_payment_gateway
+    depends_on:
+      - db-anti-fraud
 
-  db:
+  db-anti-fraud:
     image: postgres:17.4-alpine3.21
     ports:
-      - '5433:5432'
+      - 5433:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=anti_fraud
     volumes:
       - postgres2_data:/var/lib/postgresql/data
+    networks:
+      - go-gateway-api_payment_gateway
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
@@ -25,3 +32,7 @@ services:
 
 volumes:
   postgres2_data:
+
+networks:
+  go-gateway-api_payment_gateway:
+    external: true

@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+    networks:
+      - go-gateway-api_payment_gateway
+
+networks:
+  go-gateway-api_payment_gateway:
+    external: true

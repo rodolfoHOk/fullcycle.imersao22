@@ -9,7 +9,7 @@
 - Next.js
 - Apache Kafka
 - Docker
-- IA usando Cursor e v0
+- IA usando Cursor, Task Master, UX Pilot e v0
 
 ## Introdução
 
@@ -55,7 +55,19 @@ O objetivo é demonstrar a construção de um sistema distribuído moderno, com 
 - Resultados das análises são publicados de volta no Kafka
 - Gateway consome os resultados e finaliza o processamento da transação
 
+## Links úteis
+
+- [Cursor](https://www.cursor.com/)
+
+- [Task Master AI - Github](https://github.com/eyaltoledano/claude-task-master)
+
+- [UX Pilot](https://uxpilot.ai/)
+
+- [v0](https://v0.dev/)
+
 ## Projetos
+
+- [Readme Geral](#imersão-fullstack--fullcycle-22---gateway-de-pagamento)
 
 - [API Gateway Go](/go-gateway-api/README.md)
 

@@ -1,16 +1,29 @@
 services:
-  db:
+  gateway-api:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+    networks:
+      - payment_gateway
+    depends_on:
+      - db-gateway
+
+  db-gateway:
     image: postgres:17.4-alpine3.21
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=gateway
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - payment_gateway
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -18,3 +31,6 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  payment_gateway:
