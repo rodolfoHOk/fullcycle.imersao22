@@ -6,6 +6,9 @@ import { SuspiciousAccountSpecification } from './fraud/specifications/suspiciou
 import { UnusualAmountSpecification } from './fraud/specifications/unusual-amount.specification';
 import { InvoicesService } from './invoices.service';
 import { InvoicesController } from './invoices.controller';
+import { InvoicesConsumer } from './invoices.consumer';
+import * as kafkaLib from '@confluentinc/kafka-javascript';
+import { PublishInvoiceProcessedListener } from './events/publish-invoice-processed.listenner';
 
 @Module({
   providers: [
@@ -34,7 +37,14 @@ import { InvoicesController } from './invoices.controller';
       },
     },
     InvoicesService,
+    {
+      provide: kafkaLib.KafkaJS.Kafka,
+      useValue: new kafkaLib.KafkaJS.Kafka({
+        'bootstrap.servers': 'kafka:29092',
+      }),
+    },
+    PublishInvoiceProcessedListener,
   ],
-  controllers: [InvoicesController],
+  controllers: [InvoicesController, InvoicesConsumer],
 })
 export class InvoicesModule {}
