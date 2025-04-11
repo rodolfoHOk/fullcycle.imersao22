@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -34,12 +35,31 @@ func main() {
 
 	accountRepository := repository.NewAccountRepository(db)
 	invoiceRepository := repository.NewInvoiceRepository(db)
+
+	producerTopic := getEnv("KAFKA_PENDING_TRANSACTIONS_TOPIC", "pending_transactions")
+	producerConfig := service.NewKafkaConfig(producerTopic)
+	kafkaProducer := service.NewKafkaProducer(producerConfig)
+	defer kafkaProducer.Close()
+
 	accountService := service.NewAccountService(accountRepository)
-	invoiceService := service.NewInvoiceService(invoiceRepository, *accountService)
+	invoiceService := service.NewInvoiceService(invoiceRepository, *accountService, kafkaProducer)
+
+	consumerTopic := getEnv("KAFKA_TRANSACTIONS_RESULT_TOPIC", "transaction_results")
+	consumerConfig := service.NewKafkaConfig(consumerTopic)
+	groupID := getEnv("KAFKA_CONSUMER_GROUP_ID", "gateway-group")
+	kafkaConsumer := service.NewKafkaConsumer(consumerConfig, groupID, invoiceService)
+	defer kafkaConsumer.Close()
+
+	go func() {
+		if err := kafkaConsumer.Consume(context.Background()); err != nil {
+			log.Printf("Error consuming kafka messages: %v", err)
+		}
+	}()
 
 	port := getEnv("HTTP_PORT", "8080")
 	srv := server.NewServer(accountService, invoiceService, port)
 	srv.ConfigureRoutes()
+
 	if err := srv.Start(); err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}

@@ -1,19 +1,28 @@
 package service
 
 import (
+	"context"
+
 	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/domain"
+	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/domain/events"
 	"github.com/rodolfoHOk/fullcycle.imersao22/go-gateway-api/internal/dto"
 )
 
 type InvoiceService struct {
 	invoiceRepository domain.InvoiceRepository
 	accountService    AccountService
+	kafkaProducer     KafkaProducerInterface
 }
 
-func NewInvoiceService(invoiceRepository domain.InvoiceRepository, accountService AccountService) *InvoiceService {
+func NewInvoiceService(
+	invoiceRepository domain.InvoiceRepository,
+	accountService AccountService,
+	kafkaProducer KafkaProducerInterface,
+) *InvoiceService {
 	return &InvoiceService{
 		invoiceRepository: invoiceRepository,
 		accountService:    accountService,
+		kafkaProducer:     kafkaProducer,
 	}
 }
 
@@ -30,6 +39,17 @@ func (s *InvoiceService) Create(input dto.CreateInvoiceInput) (*dto.InvoiceOutpu
 
 	if err := invoice.Process(); err != nil {
 		return nil, err
+	}
+
+	if invoice.Status == domain.StatusPending {
+		pendingTransaction := events.NewPendingTransaction(
+			invoice.AccountID,
+			invoice.ID,
+			invoice.Amount,
+		)
+		if err := s.kafkaProducer.SendingPendingTransaction(context.Background(), *pendingTransaction); err != nil {
+			return nil, err
+		}
 	}
 
 	if invoice.Status == domain.StatusApproved {
@@ -87,4 +107,32 @@ func (s *InvoiceService) ListByAccountAPIKey(apiKey string) ([]*dto.InvoiceOutpu
 	}
 
 	return s.ListByAccount(accountOutput.ID)
+}
+
+func (s *InvoiceService) ProcessTransactionResult(invoiceID string, status domain.Status) error {
+	invoice, err := s.invoiceRepository.FindByID(invoiceID)
+	if err != nil {
+		return err
+	}
+
+	if err := invoice.UpdateStatus(status); err != nil {
+		return err
+	}
+
+	if err := s.invoiceRepository.UpdateStatus(invoice); err != nil {
+		return err
+	}
+
+	if status == domain.StatusApproved {
+		account, err := s.accountService.FindByID(invoice.AccountID)
+		if err != nil {
+			return err
+		}
+
+		if _, err := s.accountService.UpdateBalance(account.APIKey, invoice.Amount); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
