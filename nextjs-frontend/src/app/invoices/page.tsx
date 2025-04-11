@@ -22,11 +22,11 @@ export async function getInvoices(): Promise<Invoice[]> {
   const cookiesStore = await cookies();
   const apiKey = cookiesStore.get('apiKey')?.value;
 
-  const response = await fetch('http://localhost:8080/invoice', {
+  const response = await fetch('http://gateway-api:8080/invoice', {
     headers: {
       'X-API-KEY': apiKey as string,
     },
-    cache: 'force-cache',
+    // cache: 'force-cache',
     next: {
       tags: [`accounts/${apiKey}/invoices`],
     },

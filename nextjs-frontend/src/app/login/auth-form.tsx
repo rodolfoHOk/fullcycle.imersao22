@@ -8,7 +8,7 @@ export async function loginAction(formData: FormData) {
 
   const apiKey = formData.get('apiKey');
 
-  const response = await fetch('http://localhost:8080/accounts', {
+  const response = await fetch('http://gateway-api:8080/accounts', {
     headers: {
       'X-API-KEY': apiKey as string,
     },
