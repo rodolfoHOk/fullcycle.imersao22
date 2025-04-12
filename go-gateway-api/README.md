@@ -38,6 +38,7 @@
 - cd go-gateway-api
 - cp .env.example .env
 - docker compose up -d
+- docker compose exec -it gateway-api sh
 - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 - migrate -path db/migrations -database "postgresql://postgres:postgres@localhost:5432/gateway?sslmode=disable" up
 - go run cmd/app/main.go

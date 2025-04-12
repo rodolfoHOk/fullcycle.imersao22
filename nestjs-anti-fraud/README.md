@@ -21,17 +21,18 @@
 
 ### Requisitos
 
-- Node.js (instalado)
+- docker-compose.yaml do go-gateway-api rodando
 
 ### Comandos
 
-- git clone https://github.com/rodolfoHOk/fullcycle.imersao22
 - cd nestjs-anti-fraud
 - docker compose up -d
-- docker compose exec -it nestjs bash
+- docker compose exec -it anti-fraud bash
 - npm install
 - npx prisma migrate dev
 - npm run start:dev
+- docker compose exec -it anti-fraud bash (outro terminal)
+- npm run start:dev -- --entryFile cmd/kafka.cmd
 
 ## Testando a API
 

@@ -21,13 +21,14 @@
 
 ### Requisitos
 
-- Node.js (instalado)
-- Go Gateway API (rodando) [sobre](../go-gateway-api/README.md)
+- docker-compose.yaml do go-gateway-api rodando
+- docker-compose.yaml do nestjs-anti-fraud rodando
 
 ### Comandos
 
-- git clone https://github.com/rodolfoHOk/fullcycle.imersao22
 - cd nextjs-frontend
+- docker compose up -d
+- docker compose exec -it frontend bash
 - npm install
 - npm run dev
 
